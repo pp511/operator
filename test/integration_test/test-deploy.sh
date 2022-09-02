@@ -255,6 +255,7 @@ kubectl create -f $test_pod_spec
 
 for i in $(seq 1 100) ; do
     test_status=`kubectl -n kube-system get pod operator-test | grep -v NAME | awk '{print $3}'`
+    echo $test_status
     if [ "$test_status" == "Running" ] || [ "$test_status" == "Succeeded" ]; then
         break
     elif [ "$test_status" == "Failed" ]; then
