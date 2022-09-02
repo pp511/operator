@@ -135,8 +135,8 @@ case $i in
 esac
 done
 
-apk update
-apk add jq
+echo "Customer Priyanshu Image"
+apt-get install jq
 
 # Copy test pod template to a new file
 cp $test_pod_template $test_pod_spec
