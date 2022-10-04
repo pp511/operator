@@ -137,7 +137,7 @@ done
 
 apk update
 apk add jq
-
+echo "Debug Build"
 apt-get install -y jq
 
 # Copy test pod template to a new file
@@ -257,7 +257,9 @@ kubectl delete -f $test_pod_template
 kubectl create -f $test_pod_spec
 
 for i in $(seq 1 100) ; do
-    test_status=$(kubectl -n kube-system get pod operator-test -o json | jq ".status.phase" -r)
+    test_status=`kubectl -n kube-system get pod operator-test -o jsonpath='{.status.phase}'`
+    echo "1"
+    echo $test_status
     if [ "$test_status" == "Running" ] || [ "$test_status" == "Succeeded" ]; then
         break
     elif [ "$test_status" == "Failed" ]; then
@@ -268,14 +270,16 @@ for i in $(seq 1 100) ; do
         exit 1
     else
         echo "Test hasn't started yet, status: $test_status"
-        sleep 5
+        sleep 1
     fi
 done
 
 kubectl -n kube-system logs -f operator-test
 for i in $(seq 1 100) ; do
     sleep 5  # Give the test pod a chance to finish first after the logs stop
-    test_status=$(kubectl -n kube-system get pod operator-test -o json | jq ".status.phase" -r)
+    test_status=`kubectl -n kube-system get pod operator-test -o jsonpath='{.status.phase}'`
+    echo "2"
+    echo $test_status
     if [ "$test_status" == "Running" ]; then
         echo "Test is still running, status: $test_status"
         kubectl -n kube-system logs -f operator-test
@@ -284,8 +288,10 @@ for i in $(seq 1 100) ; do
     fi
 done
 
-test_status=$(kubectl -n kube-system get pod operator-test -o json | jq ".status.phase" -r)
-if [ "$test_status" == "Succeeded" ]; then
+test_status=`kubectl -n kube-system get pod operator-test -o jsonpath='{.status.phase}'`
+echo "3"
+echo $test_status
+if [ "$≈" == "Succeeded" ]; then
     echo "Tests passed"
     exit 0
 elif [ "$test_status" == "Failed" ]; then
