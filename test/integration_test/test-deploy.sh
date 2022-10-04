@@ -138,6 +138,8 @@ done
 apk update
 apk add jq
 
+apt-get install -y jq
+
 # Copy test pod template to a new file
 cp $test_pod_template $test_pod_spec
 
