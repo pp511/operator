@@ -3842,7 +3842,7 @@ func ValidateStorageClusterInstallFailedWithEvents(
 		return err
 	}
 	logrus.Debug("Validating K8 event for NodeStartFailure")
-	return validateK8Events(clusterSpec, timeout, interval, eventsFieldSelector, eventsNewerThan, reason)
+	return validateK8Events(clusterSpec, timeout, interval, "reason=NodeStartFailure", eventsNewerThan, reason)
 }
 
 func validateK8Events(
