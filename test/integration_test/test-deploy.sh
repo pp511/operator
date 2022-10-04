@@ -291,7 +291,7 @@ done
 test_status=`kubectl -n kube-system get pod operator-test -o jsonpath='{.status.phase}'`
 echo "3"
 echo $test_status
-if [ "$≈" == "Succeeded" ]; then
+if [ "test_status" == "Succeeded" ]; then
     echo "Tests passed"
     exit 0
 elif [ "$test_status" == "Failed" ]; then
