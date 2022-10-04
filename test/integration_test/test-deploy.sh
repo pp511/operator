@@ -290,18 +290,6 @@ for i in $(seq 1 100) ; do
     fi
 done
 
-test_status=$(kubectl -n kube-system get pod operator-test -o json | jq ".status.phase" -r)
-echo "jq Tests"
-echo $test_status
-if [ "$test_status" == "Succeeded" ]; then
-    echo "jq Tests passed"
-    exit 0
-elif [ "$test_status" = "Succeeded" ]; then
-    echo "jq Tests passed 2"
-    exit 0
-fi
-
-
 test_status=`kubectl -n kube-system get pod operator-test -o jsonpath='{.status.phase}'`
 echo "3"
 echo $test_status
