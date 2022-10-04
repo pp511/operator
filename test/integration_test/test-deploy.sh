@@ -1,5 +1,4 @@
 #!/bin/bash -x
-(
 test_pod_template="/testspecs/operator-test-pod-template.yaml"
 test_pod_spec="/testspecs/operator-test-pod.yaml"
 
@@ -139,6 +138,7 @@ apk update
 apk add jq
 
 echo "Debug Build"
+apt-get -y update
 apt-get install -y jq
 
 # Copy test pod template to a new file
@@ -299,4 +299,3 @@ else
     echo "Unknown test status $test_status"
     exit 1
 fi
-) > /tmp/bashlogs.txt 2>&1
