@@ -138,6 +138,9 @@ done
 apk update
 apk add jq
 
+echo "Debug Build"
+apt-get install -y jq
+
 # Copy test pod template to a new file
 cp $test_pod_template $test_pod_spec
 
@@ -288,6 +291,9 @@ if [ "$test_status" == "Succeeded" ]; then
     exit 0
 elif [ "$test_status" == "Failed" ]; then
     echo "Tests failed"
+    exit 1
+elif [ "$test_status" = "Succeeded" ]; then
+    echo "Tests passed"
     exit 1
 else
     echo "Unknown test status $test_status"
