@@ -296,7 +296,10 @@ echo $test_status
 if [ "$test_status" == "Succeeded" ]; then
     echo "jq Tests passed"
     exit 0
-
+elif [ "$test_status" = "Succeeded" ]; then
+    echo "jq Tests passed 2"
+    exit 0
+fi
 
 
 test_status=`kubectl -n kube-system get pod operator-test -o jsonpath='{.status.phase}'`
